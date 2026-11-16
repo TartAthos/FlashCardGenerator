@@ -59,6 +59,27 @@ public class FlashcardDao {
         return deckList;
     }
 
+    public Deck getDeckById(long deckId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(
+                DatabaseHelper.TABLE_DECKS,
+                null,
+                DatabaseHelper.COLUMN_DECK_ID + " = ?",
+                new String[]{String.valueOf(deckId)},
+                null, null, null
+        );
+
+        Deck deck = null;
+        if (cursor.moveToFirst()) {
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_DECK_ID));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_DECK_TITLE));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_DECK_DESCRIPTION));
+            deck = new Deck(id, title, description);
+        }
+        cursor.close();
+        return deck;
+    }
+
     /**
      * Insère un nouveau deck en base et retourne son ID généré.
      */
@@ -73,6 +94,20 @@ public class FlashcardDao {
 
         // Insertion sécurisée : renvoie l'ID de la nouvelle ligne (ou -1 en cas d'erreur)
         return db.insert(DatabaseHelper.TABLE_DECKS, null, values);
+    }
+
+    public int updateDeck(Deck deck) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_DECK_TITLE, deck.getTitle());
+        values.put(DatabaseHelper.COLUMN_DECK_DESCRIPTION, deck.getDescription());
+
+        return db.update(
+                DatabaseHelper.TABLE_DECKS,
+                values,
+                DatabaseHelper.COLUMN_DECK_ID + " = ?",
+                new String[]{String.valueOf(deck.getId())}
+        );
     }
 
     /**

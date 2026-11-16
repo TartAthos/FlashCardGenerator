@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         dao = new FlashcardDao(this);
         containerDecks = findViewById(R.id.containerDecks);
 
+        Button btnCreateDeck = findViewById(R.id.btnCreateDeck);
+        btnCreateDeck.setOnClickListener(v -> {
+            // On ouvre EditDeckActivity SANS extra DECK_ID -> Mode Création
+            Intent intent = new Intent(MainActivity.this, EditDeckActivity.class);
+            startActivity(intent);
+        });
+
         displayDecks();
     }
 
@@ -52,16 +59,14 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (Deck deck : decks) {
-            // 1. Création d'une nouvelle carte à partir du modèle XML
+
             View cardView = inflater.inflate(R.layout.item_deck, containerDecks, false);
 
-            // 2. Récupération des composants à l'intérieur de cette carte précise
             TextView tvTitle = cardView.findViewById(R.id.tvDeckTitle);
             TextView tvDescription = cardView.findViewById(R.id.tvDeckDescription);
             Button btnEdit = cardView.findViewById(R.id.btnEditDeck);
             Button btnPlay = cardView.findViewById(R.id.btnPlayDeck);
 
-            // 3. Remplissage avec les données du deck SQLite
             tvTitle.setText(deck.getTitle());
             tvDescription.setText(deck.getDescription());
 
@@ -74,16 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 // startActivity(intent);
             });
 
-            // 5. Gestion du clic sur "Modifier"
             btnEdit.setOnClickListener(v -> {
                 Toast.makeText(this, "Modification du deck : " + deck.getTitle(), Toast.LENGTH_SHORT).show();
-                // Plus tard : ouvrir l'activité d'édition en lui passant l'ID du deck
-                // Intent intent = new Intent(MainActivity.this, EditDeckActivity.class);
-                // intent.putExtra("DECK_ID", deck.getId());
-                // startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, EditDeckActivity.class);
+                intent.putExtra("DECK_ID", deck.getId());
+                startActivity(intent);
             });
 
-            // 6. Ajout de la carte remplie dans le LinearLayout du ScrollView
             containerDecks.addView(cardView);
         }
     }
