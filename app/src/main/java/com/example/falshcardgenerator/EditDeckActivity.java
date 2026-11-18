@@ -34,7 +34,6 @@ public class EditDeckActivity extends AppCompatActivity {
 
         dao = new FlashcardDao(this);
 
-        // Récupération des vues
         tvScreenTitle = findViewById(R.id.tvScreenTitle);
         etDeckTitle = findViewById(R.id.etDeckTitle);
         etDeckDescription = findViewById(R.id.etDeckDescription);
@@ -43,7 +42,6 @@ public class EditDeckActivity extends AppCompatActivity {
         btnSaveDeck = findViewById(R.id.btnSaveDeck);
         btnDeleteDeck = findViewById(R.id.btnDeleteDeck);
 
-        // Vérifie si un DECK_ID a été passé par MainActivity
         deckId = getIntent().getLongExtra("DECK_ID", -1L);
 
         if (deckId != -1L) {
@@ -54,21 +52,17 @@ public class EditDeckActivity extends AppCompatActivity {
         } else {
             // --- MODE CRÉATION ---
             tvScreenTitle.setText("Nouveau Deck");
-            // On ajoute une première carte vide par défaut pour guider l'utilisateur
             addCardRow("", "");
         }
 
-        // Bouton "+ Ajouter une carte"
         btnAddCardRow.setOnClickListener(v -> addCardRow("", ""));
 
-        // Bouton "Enregistrer"
         btnSaveDeck.setOnClickListener(v -> saveDeckAndCards());
 
-        // Bouton "Supprimer" (uniquement visible en mode modification)
         btnDeleteDeck.setOnClickListener(v -> {
             dao.deleteDeck(deckId);
             Toast.makeText(this, "Deck supprimé", Toast.LENGTH_SHORT).show();
-            finish(); // Ferme l'écran et revient à MainActivity
+            finish();
         });
     }
 

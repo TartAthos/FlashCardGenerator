@@ -70,17 +70,13 @@ public class MainActivity extends AppCompatActivity {
             tvTitle.setText(deck.getTitle());
             tvDescription.setText(deck.getDescription());
 
-            // 4. Gestion du clic sur "Jouer"
             btnPlay.setOnClickListener(v -> {
-                Toast.makeText(this, "Lancement du jeu : " + deck.getTitle(), Toast.LENGTH_SHORT).show();
-                // Plus tard : ouvrir l'activité de révision en lui passant l'ID du deck
-                // Intent intent = new Intent(MainActivity.this, PlayDeckActivity.class);
-                // intent.putExtra("DECK_ID", deck.getId());
-                // startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, PlayDeckActivity.class);
+                intent.putExtra("DECK_ID", deck.getId());
+                startActivity(intent);
             });
 
             btnEdit.setOnClickListener(v -> {
-                Toast.makeText(this, "Modification du deck : " + deck.getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, EditDeckActivity.class);
                 intent.putExtra("DECK_ID", deck.getId());
                 startActivity(intent);
