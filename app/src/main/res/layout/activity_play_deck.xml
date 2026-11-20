@@ -8,28 +8,28 @@
 
     <!-- En-tête : Titre du deck et compteur -->
     <TextView
-        android:id="@+id/tvPlayDeckTitle"
+        android:id="@+id/PlayDeckTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Nom du Deck"
         android:textColor="#111111"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/tvCardProgress"
+        app:layout_constraintEnd_toStartOf="@id/CardProgress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCardProgress"
+        android:id="@+id/CardProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1 / 5"
         android:textColor="#616161"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tvPlayDeckTitle"
+        app:layout_constraintBottom_toBottomOf="@id/PlayDeckTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvPlayDeckTitle" />
+        app:layout_constraintTop_toTopOf="@id/PlayDeckTitle" />
 
     <!-- Grande Flashcard cliquable -->
     <androidx.cardview.widget.CardView
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@id/btnNextCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPlayDeckTitle">
+        app:layout_constraintTop_toBottomOf="@id/PlayDeckTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardInnerContainer"
@@ -55,7 +55,7 @@
             android:padding="24dp">
 
             <TextView
-                android:id="@+id/tvCardSideLabel"
+                android:id="@+id/CardSideLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="QUESTION"
@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvCardContent"
+                android:id="@+id/CardContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"

@@ -18,6 +18,7 @@ import java.util.List;
 import com.example.falshcardgenerator.model.Card;
 import com.example.falshcardgenerator.model.Deck;
 import com.example.falshcardgenerator.db.FlashcardDao;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
             // On ouvre EditDeckActivity SANS extra DECK_ID -> Mode Création
             Intent intent = new Intent(MainActivity.this, EditDeckActivity.class);
             startActivity(intent);
+        });
+
+        Button btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         });
 
         displayDecks();

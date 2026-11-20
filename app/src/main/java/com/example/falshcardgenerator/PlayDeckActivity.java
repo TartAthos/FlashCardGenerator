@@ -26,7 +26,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private int currentIndex = 0;
     private boolean isShowingAnswer = false;
 
-    private TextView tvPlayDeckTitle, tvCardProgress, tvCardSideLabel, tvCardContent;
+    private TextView PlayDeckTitle, CardProgress, CardSideLabel, CardContent;
     private CardView cardFlashcard;
     private ConstraintLayout cardInnerContainer;
     private Button btnFlipCard, btnNextCard;
@@ -39,10 +39,10 @@ public class PlayDeckActivity extends AppCompatActivity {
         dao = new FlashcardDao(this);
 
         // 1. Récupération des vues
-        tvPlayDeckTitle = findViewById(R.id.tvPlayDeckTitle);
-        tvCardProgress = findViewById(R.id.tvCardProgress);
-        tvCardSideLabel = findViewById(R.id.tvCardSideLabel);
-        tvCardContent = findViewById(R.id.tvCardContent);
+        PlayDeckTitle = findViewById(R.id.PlayDeckTitle);
+        CardProgress = findViewById(R.id.CardProgress);
+        CardSideLabel = findViewById(R.id.CardSideLabel);
+        CardContent = findViewById(R.id.CardContent);
         cardFlashcard = findViewById(R.id.cardFlashcard);
         cardInnerContainer = findViewById(R.id.cardInnerContainer);
         btnNextCard = findViewById(R.id.btnNextCard);
@@ -59,7 +59,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             return;
         }
 
-        tvPlayDeckTitle.setText(deck.getTitle());
+        PlayDeckTitle.setText(deck.getTitle());
 
         // Optionnel : mélanger l'ordre des cartes à chaque partie
         Collections.shuffle(cardList);
@@ -80,12 +80,12 @@ public class PlayDeckActivity extends AppCompatActivity {
         isShowingAnswer = false;
 
         // Mise à jour du compteur (ex: "1 / 4")
-        tvCardProgress.setText((currentIndex + 1) + " / " + cardList.size());
+        CardProgress.setText((currentIndex + 1) + " / " + cardList.size());
 
         // Affichage de la face Question
-        tvCardSideLabel.setText("QUESTION");
-        tvCardSideLabel.setTextColor(Color.parseColor("#3F51B5"));
-        tvCardContent.setText(currentCard.getQuestion());
+        CardSideLabel.setText("QUESTION");
+        CardSideLabel.setTextColor(Color.parseColor("#3F51B5"));
+        CardContent.setText(currentCard.getQuestion());
         cardInnerContainer.setBackgroundColor(Color.WHITE);
 
         // Changer le texte du bouton sur la dernière carte
@@ -100,19 +100,27 @@ public class PlayDeckActivity extends AppCompatActivity {
         Card currentCard = cardList.get(currentIndex);
         isShowingAnswer = !isShowingAnswer;
 
-        if (isShowingAnswer) {
-            // Bascule vers la Réponse
-            tvCardSideLabel.setText("RÉPONSE");
-            tvCardSideLabel.setTextColor(Color.parseColor("#2E7D32"));
-            tvCardContent.setText(currentCard.getAnswer());
-            cardInnerContainer.setBackgroundColor(Color.parseColor("#E8F5E9"));
-        } else {
-            // Retour vers la Question
-            tvCardSideLabel.setText("QUESTION");
-            tvCardSideLabel.setTextColor(Color.parseColor("#3F51B5"));
-            tvCardContent.setText(currentCard.getQuestion());
-            cardInnerContainer.setBackgroundColor(Color.WHITE);
-        }
+        cardFlashcard.animate()
+                .rotationY(90f)
+                .setDuration(150)
+                .withEndAction(() -> {
+                    if (isShowingAnswer) {
+                        CardSideLabel.setText("RÉPONSE");
+                        CardSideLabel.setTextColor(Color.parseColor("#2E7D32"));
+                        CardContent.setText(currentCard.getAnswer());
+                        cardInnerContainer.setBackgroundColor(Color.parseColor("#E8F5E9"));
+                    } else {
+                        CardSideLabel.setText("QUESTION");
+                        CardSideLabel.setTextColor(Color.parseColor("#3F51B5"));
+                        CardContent.setText(currentCard.getQuestion());
+                        cardInnerContainer.setBackgroundColor(Color.WHITE);
+                    }
+                    cardFlashcard.setRotationY(-90f);
+                    cardFlashcard.animate()
+                            .rotationY(0f)
+                            .setDuration(150)
+                            .start();
+                }).start();
     }
 
     private void nextCard() {

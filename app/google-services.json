@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "232722065197",
+    "project_id": "falshcardgenerator-a896b",
+    "storage_bucket": "falshcardgenerator-a896b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232722065197:android:0f8b70caa36f8dbd2615a4",
+        "android_client_info": {
+          "package_name": "com.example.falshcardgenerator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBHlATlZiA4lQCgA4cDEAIjjSimkqyQSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
