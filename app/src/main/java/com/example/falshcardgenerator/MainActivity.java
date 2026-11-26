@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button btnCreateAiDeck = findViewById(R.id.btnCreateAiDeck);
+        btnCreateAiDeck.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, GenerateAiDeckActivity.class));
+        });
+
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
